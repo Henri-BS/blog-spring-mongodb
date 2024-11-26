@@ -13,4 +13,6 @@ public interface UserService {
     User saveUser(UserDto dto);
 
     User updateUser(UserDto dto);
+
+    void deleteUser(String id);
 }

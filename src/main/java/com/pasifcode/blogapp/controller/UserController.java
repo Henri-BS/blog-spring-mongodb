@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -29,15 +31,23 @@ public class UserController {
         return ResponseEntity.ok(new UserDto(find));
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<UserDto> saveUser(@RequestBody UserDto dto) {
-        User add = userService.saveUser(dto);
-        return new ResponseEntity<>(new UserDto(add), HttpStatus.CREATED);
+    @PostMapping
+    public ResponseEntity<Void> saveUser(@RequestBody UserDto dto) {
+        UserDto user = new UserDto(userService.saveUser(dto));
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(user.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto dto) {
         User edit = userService.updateUser(dto);
+
         return new ResponseEntity<>(new UserDto(edit),  HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String id){
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }
