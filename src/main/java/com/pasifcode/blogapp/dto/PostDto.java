@@ -12,9 +12,9 @@ public class PostDto {
     private String image;
     private String description;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime dateCreated;
+    private LocalDateTime createdDate;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime dateUpdated;
+    private LocalDateTime lastModifiedDate;
     private AuthorDto author;
 
     public PostDto() {
@@ -26,9 +26,9 @@ public class PostDto {
         summary = post.getSummary();
         image = post.getImage();
         description = post.getDescription();
-        dateCreated = post.getCreatedDate();
-        dateUpdated = post.getLastModifiedDate();
-        author = new AuthorDto(post.getAuthor());
+        createdDate = post.getCreatedDate();
+        lastModifiedDate = post.getLastModifiedDate();
+        author = post.getAuthor();
     }
 
     public String getId() {
@@ -49,14 +49,6 @@ public class PostDto {
 
     public String getDescription() {
         return description;
-    }
-
-    public LocalDateTime getDateCreated() {
-        return dateCreated;
-    }
-
-    public LocalDateTime getDateUpdated() {
-        return dateUpdated;
     }
 
     public AuthorDto getAuthor() {

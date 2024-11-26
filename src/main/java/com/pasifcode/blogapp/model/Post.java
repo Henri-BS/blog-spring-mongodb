@@ -1,6 +1,6 @@
 package com.pasifcode.blogapp.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.pasifcode.blogapp.dto.AuthorDto;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -21,12 +21,12 @@ public class Post {
     private LocalDateTime createdDate = LocalDateTime.now();
     @LastModifiedDate
     private LocalDateTime lastModifiedDate = LocalDateTime.now();
-    private User author;
+    private AuthorDto author;
 
     public Post() {
     }
 
-    public Post(String id, String title, String summary, String image, String description, LocalDateTime createdDate, LocalDateTime lastModifiedDate, User author) {
+    public Post(String id, String title, String summary, String image, String description, LocalDateTime createdDate, LocalDateTime lastModifiedDate, AuthorDto author) {
         this.id = id;
         this.title = title;
         this.summary = summary;
@@ -81,23 +81,15 @@ public class Post {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public LocalDateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public User getAuthor() {
+    public AuthorDto getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(AuthorDto author) {
         this.author = author;
     }
 }

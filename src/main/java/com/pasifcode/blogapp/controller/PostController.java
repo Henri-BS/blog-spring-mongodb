@@ -1,17 +1,15 @@
 package com.pasifcode.blogapp.controller;
 
 import com.pasifcode.blogapp.dto.PostDto;
-import com.pasifcode.blogapp.dto.UserDto;
 import com.pasifcode.blogapp.model.Post;
-import com.pasifcode.blogapp.model.User;
 import com.pasifcode.blogapp.service.PostService;
+import com.pasifcode.blogapp.util.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 @RestController
 @RequestMapping("/posts")
@@ -21,8 +19,9 @@ public class PostController {
     private PostService postService;
 
     @GetMapping
-    private ResponseEntity<List<PostDto>> findAllPosts(){
-        List<Post> list = postService.findAll();
+    private ResponseEntity<List<PostDto>> searchPosts(@RequestParam(defaultValue = "") String title){
+        title = URL.decodeParams(title);
+        List<Post> list = postService.search(title);
         return ResponseEntity.ok(list.stream().map(PostDto::new).toList());
     }
 
@@ -32,6 +31,23 @@ public class PostController {
         return ResponseEntity.ok(new PostDto(find));
     }
 
+    @PostMapping
+    public ResponseEntity<Void> savePost(@RequestBody PostDto dto) {
+        PostDto post = new PostDto(postService.savePost(dto));
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(post.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
 
+    @PutMapping
+    public ResponseEntity<PostDto> updatePost(@RequestBody PostDto dto) {
+        PostDto post = new PostDto(postService.updatePost(dto));
+        return ResponseEntity.ok(post);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable String id){
+        this.postService.deletePost(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }

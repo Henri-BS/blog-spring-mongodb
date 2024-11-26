@@ -1,12 +1,10 @@
 package com.pasifcode.blogapp.controller;
 
-import com.pasifcode.blogapp.dto.PostDto;
 import com.pasifcode.blogapp.dto.UserDto;
 import com.pasifcode.blogapp.model.Post;
 import com.pasifcode.blogapp.model.User;
 import com.pasifcode.blogapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -49,8 +47,7 @@ public class UserController {
     @PutMapping
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto dto) {
         User edit = userService.updateUser(dto);
-
-        return new ResponseEntity<>(new UserDto(edit),  HttpStatus.OK);
+        return ResponseEntity.ok(new UserDto(edit));
     }
 
     @DeleteMapping("/{id}")
