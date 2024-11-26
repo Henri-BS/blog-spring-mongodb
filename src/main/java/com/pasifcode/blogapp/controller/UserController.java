@@ -1,6 +1,8 @@
 package com.pasifcode.blogapp.controller;
 
+import com.pasifcode.blogapp.dto.PostDto;
 import com.pasifcode.blogapp.dto.UserDto;
+import com.pasifcode.blogapp.model.Post;
 import com.pasifcode.blogapp.model.User;
 import com.pasifcode.blogapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,12 @@ public class UserController {
     private ResponseEntity<UserDto> findUserById(@PathVariable String id){
         User find = userService.findById(id);
         return ResponseEntity.ok(new UserDto(find));
+    }
+
+    @GetMapping("/{id}/posts")
+    private ResponseEntity<List<Post>> findByUser(@PathVariable String id) {
+        User user = userService.findById(id);
+        return ResponseEntity.ok(user.getPosts());
     }
 
     @PostMapping
