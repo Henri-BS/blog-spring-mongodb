@@ -19,9 +19,9 @@ public class PostController {
     private PostService postService;
 
     @GetMapping
-    private ResponseEntity<List<PostDto>> searchPosts(@RequestParam(defaultValue = "") String title){
-        title = URL.decodeParams(title);
-        List<Post> list = postService.search(title);
+    private ResponseEntity<List<PostDto>> searchPosts(@RequestParam(defaultValue = "") String query){
+        query = URL.decodeParams(query);
+        List<Post> list = postService.search(query);
         return ResponseEntity.ok(list.stream().map(PostDto::new).toList());
     }
 

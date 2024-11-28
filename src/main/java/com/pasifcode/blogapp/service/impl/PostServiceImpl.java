@@ -42,6 +42,7 @@ public class PostServiceImpl implements PostService {
         add.setSummary(dto.getSummary());
         add.setDescription(dto.getDescription());
         add.setImage(dto.getImage());
+        add.setNotes(dto.getNotes());
         add.setAuthor(author);
         postRepository.save(add);
 
@@ -60,6 +61,7 @@ public class PostServiceImpl implements PostService {
         edit.setSummary(dto.getSummary());
         edit.setDescription(dto.getDescription());
         edit.setImage(dto.getImage());
+        edit.setNotes(dto.getNotes());
 
         if (dto.getTitle() == null )
             edit.setTitle(edit.getTitle());
@@ -69,6 +71,8 @@ public class PostServiceImpl implements PostService {
             edit.setDescription(edit.getDescription());
         if(dto.getImage() == null)
             edit.setImage(edit.getImage());
+        if(dto.getNotes() == null)
+            edit.setNotes(edit.getNotes());
 
        return postRepository.save(edit);
 
@@ -76,6 +80,6 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void deletePost(String id) {
-        this.userRepository.deleteById(id);
+        this.postRepository.deleteById(id);
     }
 }

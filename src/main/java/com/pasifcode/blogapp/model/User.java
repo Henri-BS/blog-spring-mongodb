@@ -17,6 +17,8 @@ public class User {
     private String password;
     @DBRef(lazy = true)
     private List<Post> posts = new ArrayList<>();
+    @DBRef(lazy = true)
+    private List<Comment> comments = new ArrayList<>();
 
     public User() {
     }
@@ -63,4 +65,9 @@ public class User {
     public List<Post> getPosts() {
         return posts;
     }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
 }

@@ -1,64 +1,32 @@
 package com.pasifcode.blogapp.model;
 
 import com.pasifcode.blogapp.dto.AuthorDto;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Document
-public class Post {
+public class Post extends BaseModel {
 
-    @Id
-    private String id;
-    private String title;
-    private String summary;
     private String image;
-    private String description;
-    @CreatedDate
-    private LocalDateTime createdDate = LocalDateTime.now();
-    @LastModifiedDate
-    private LocalDateTime lastModifiedDate = LocalDateTime.now();
+    private String summary;
+    private String notes;
     private AuthorDto author;
+    @DBRef(lazy = true)
+    private List<Comment> comments = new ArrayList<>();
 
     public Post() {
     }
 
-    public Post(String id, String title, String summary, String image, String description, LocalDateTime createdDate, LocalDateTime lastModifiedDate, AuthorDto author) {
-        this.id = id;
-        this.title = title;
-        this.summary = summary;
+    public Post(String id, String title, String description, String image, LocalDateTime createdDate, LocalDateTime lastModifiedDate, String summary, String notes, AuthorDto author) {
+        super(id, title, description, createdDate, lastModifiedDate);
         this.image = image;
-        this.description = description;
-        this.createdDate = createdDate;
-        this.lastModifiedDate = lastModifiedDate;
-        this.author = author;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
         this.summary = summary;
+        this.notes = notes;
+        this.author = author;
     }
 
     public String getImage() {
@@ -69,20 +37,20 @@ public class Post {
         this.image = image;
     }
 
-    public String getDescription() {
-        return description;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public String getNotes() {
+        return notes;
     }
 
-    public LocalDateTime getLastModifiedDate() {
-        return lastModifiedDate;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public AuthorDto getAuthor() {
@@ -91,5 +59,9 @@ public class Post {
 
     public void setAuthor(AuthorDto author) {
         this.author = author;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
     }
 }
