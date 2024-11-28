@@ -2,7 +2,6 @@ package com.pasifcode.blogapp.service.impl;
 
 import com.pasifcode.blogapp.dto.TagDto;
 import com.pasifcode.blogapp.model.Tag;
-import com.pasifcode.blogapp.repository.PostRepository;
 import com.pasifcode.blogapp.repository.TagRepository;
 import com.pasifcode.blogapp.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +15,6 @@ public class TagServiceImpl implements TagService {
 
     @Autowired
     private TagRepository tagRepository;
-
-    @Autowired
-    private PostRepository postRepository;
-
 
     @Override
     public List<Tag> search(String title) {
@@ -64,6 +59,6 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public void deleteTag(String id) {
-        this.postRepository.deleteById(id);
+        this.tagRepository.deleteById(id);
     }
 }
