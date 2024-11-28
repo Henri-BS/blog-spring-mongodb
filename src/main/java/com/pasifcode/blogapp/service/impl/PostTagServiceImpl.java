@@ -40,6 +40,12 @@ public class PostTagServiceImpl implements PostTagService {
         add.setTag(tag);
         postTagRepository.save(add);
 
+        tag.getPostTags().add(add);
+        tagRepository.save(tag);
+
+        post.getPostTags().add(add);
+        postRepository.save(post);
+
         return add;
     }
 

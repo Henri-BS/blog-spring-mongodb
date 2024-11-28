@@ -17,6 +17,8 @@ public class Post extends BaseModel {
     private AuthorDto author;
     @DBRef(lazy = true)
     private List<Comment> comments = new ArrayList<>();
+    @DBRef(lazy = true)
+    private List<PostTag> postTags = new ArrayList<>();
 
     public Post() {
     }
@@ -63,5 +65,9 @@ public class Post extends BaseModel {
 
     public List<Comment> getComments() {
         return comments;
+    }
+
+    public List<PostTag> getPostTags() {
+        return postTags;
     }
 }

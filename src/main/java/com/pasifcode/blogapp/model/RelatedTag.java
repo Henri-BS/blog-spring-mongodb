@@ -4,17 +4,17 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class TagRelated {
+public class RelatedTag {
 
     @Id
     private String id;
     private Tag tagFrom;
     private Tag tagTo;
 
-    public TagRelated() {
+    public RelatedTag() {
     }
 
-    public TagRelated(String id, Tag tagFrom, Tag tagTo) {
+    public RelatedTag(String id, Tag tagFrom, Tag tagTo) {
         this.id = id;
         this.tagFrom = tagFrom;
         this.tagTo = tagTo;

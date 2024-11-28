@@ -1,12 +1,10 @@
 package com.pasifcode.blogapp.dto;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pasifcode.blogapp.model.PostTag;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 public class PostTagDto implements Serializable {
 
